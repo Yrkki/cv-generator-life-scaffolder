@@ -91,7 +91,7 @@ echo
 echo $'\033[0;32m'Generating ${#classes[@]} classes:$'\033[0m'
 for i in "${!classes[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${classes[$i]} $'\033[0;32m'class \($((i+1)) of ${#classes[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${classes[$i]} $'\033[0;34m'class \($((i+1)) of ${#classes[@]}\):$'\033[0m'
   ng generate class classes/${classes[$i]}/${classes[$i]} \
     --defaults=true \
     --dryRun=false \
@@ -111,7 +111,7 @@ echo
 echo $'\033[0;32m'Generating ${#components[@]} components:$'\033[0m'
 for i in "${!components[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${components[$i]} $'\033[0;32m'component \($((i+1)) of ${#components[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${components[$i]} $'\033[0;34m'component \($((i+1)) of ${#components[@]}\):$'\033[0m'
   :
 done
 echo
@@ -119,7 +119,7 @@ echo
 echo $'\033[0;32m'Generating ${#guards[@]} guards:$'\033[0m'
 for i in "${!guards[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${guards[$i]} $'\033[0;32m'guard \($((i+1)) of ${#guards[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${guards[$i]} $'\033[0;34m'guard \($((i+1)) of ${#guards[@]}\):$'\033[0m'
   ng generate module guards/${guards[$i]}/${guards[$i]} \
     --defaults=true \
     --dryRun=false \
@@ -140,7 +140,7 @@ echo
 echo $'\033[0;32m'Generating ${#interfaces[@]} interfaces:$'\033[0m'
 for i in "${!interfaces[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${interfaces[$i]} $'\033[0;32m' interface \($((i+1)) of ${#interfaces[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${interfaces[$i]} $'\033[0;34m' interface \($((i+1)) of ${#interfaces[@]}\):$'\033[0m'
   ng generate interface interfaces/${interfaces[$i]} \
     --defaults=true \
     --dryRun=false \
@@ -178,7 +178,7 @@ echo '    ' $'\033[1;30m'Import template injected.$'\033[0m'
 # generate modules
 for i in "${!modules[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating ${modulesParent[$i]}$'\033[0m' ${modules[$i]} $'\033[0;32m'module \($((i+1)) of ${#modules[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating ${modulesParent[$i]}$'\033[0m' ${modules[$i]} $'\033[0;34m'module \($((i+1)) of ${#modules[@]}\):$'\033[0m'
   if [ -z ${modulesParent[$i]} ]; then
     moduleParameter=/app
   else
@@ -292,7 +292,7 @@ echo
 echo $'\033[0;32m'Generating ${#pipes[@]} pipes:$'\033[0m'
 for i in "${!pipes[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${pipes[$i]} $'\033[0;32m' pipe \($((i+1)) of ${#pipes[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${pipes[$i]} $'\033[0;34m' pipe \($((i+1)) of ${#pipes[@]}\):$'\033[0m'
   ng generate pipe pipes/${pipes[$i]}/${pipes[$i]} \
     --defaults=true \
     --dryRun=false \
@@ -311,7 +311,7 @@ echo
 echo $'\033[0;32m'Generating ${#services[@]} services:$'\033[0m'
 for i in "${!services[@]}"
 do
-  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${services[$i]} $'\033[0;32m'service \($((i+1)) of ${#services[@]}\):$'\033[0m'
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${services[$i]} $'\033[0;34m'service \($((i+1)) of ${#services[@]}\):$'\033[0m'
   ng generate service services/${services[$i]}/${services[$i]} \
     --defaults=true \
     --dryRun=false \
