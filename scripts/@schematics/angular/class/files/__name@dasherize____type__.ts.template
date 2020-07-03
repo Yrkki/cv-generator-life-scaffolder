@@ -1,0 +1,4 @@
+import { <%= classify(name) %> as I<%= classify(name) %> } from './../../interfaces/<%= dasherize(name) %>/<%= dasherize(name) %>';
+
+export class <%= classify(name) %> implements I<%= classify(name) %> {
+}
