@@ -1,0 +1,2 @@
+<% if (routing) { %>
+<router-outlet></router-outlet><% } %>

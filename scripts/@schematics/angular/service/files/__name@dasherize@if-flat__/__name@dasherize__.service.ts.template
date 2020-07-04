@@ -1,0 +1,14 @@
+import { Injectable } from '@angular/core';
+
+/** <%= classify(name) %> service. */
+@Injectable({
+  providedIn: 'root'
+})
+export class <%= classify(name) %>Service {
+
+  /**
+   * Constructs the <%= classify(name) %> service.
+   * ~constructor
+   */
+  constructor() { }
+}

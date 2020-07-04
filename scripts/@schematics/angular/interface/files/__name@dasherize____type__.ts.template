@@ -1,0 +1,5 @@
+/** <%= prefix %><%= classify(name) %> interface. */
+export interface <%= prefix %><%= classify(name) %> {
+  /** Generic interface member */
+  Empty: {};
+}

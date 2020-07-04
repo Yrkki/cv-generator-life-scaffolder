@@ -1,0 +1,13 @@
+import { <%= classify(name) %>Pipe } from './<%= dasherize(name) %>.pipe';
+
+describe('<%= classify(name) %>Pipe', () => {
+  const pipe = new <%= classify(name) %>Pipe();
+
+  it('should be able to transform', () => {
+    expect(pipe.transform(null)).toBeNull();
+  });
+
+  it('should be created', () => {
+    expect(pipe).toBeTruthy();
+  });
+});

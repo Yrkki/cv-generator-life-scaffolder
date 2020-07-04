@@ -56,11 +56,11 @@ do
     # echo '      ' $moduleClassified
 
     # duplicate component declaration line
-    sed -i -e "s/\(^import.*\)$moduleClassified\(Component.*\)\(';$\)/\1"$moduleClassified"Component as "$moduleClassified"Base\2\3\n\1$moduleClassified\2\3/g" $parentFile
+    sed -i -e "s/\(^import.*\)$moduleClassified\(Component.*\)\(';$\)/\1"$moduleClassified"Component as "$moduleClassified"Base\2\3\n\1$moduleClassified\2\3/g" $i
     echo '      ' $'\033[1;30m'Component declaration line duplicated.$'\033[0m'
 
     # duplicate component module declarations membership
-    sed -i -e "s/\(declarations: \[.*\)$moduleClassified\(.*$\)/\1"$moduleClassified"BaseComponent, $moduleClassified\2/g" $parentFile
+    sed -i -e "s/\(declarations: \[.*\)$moduleClassified\(.*$\)/\1"$moduleClassified"BaseComponent, $moduleClassified\2/g" $i
     echo '      ' $'\033[1;30m'Component module declarations membership duplicated.$'\033[0m'
   fi
 

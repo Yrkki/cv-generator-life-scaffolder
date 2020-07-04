@@ -1,0 +1,21 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+<% if (routing) { %>
+import { AppRoutingModule } from './app-routing.module';<% } %>
+import { AppComponent } from './app.component';
+import { ChildNameModule } from './modules/child-name/child-name.module';
+
+/** The main application module. */
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule<% if (routing) { %>,
+    AppRoutingModule<% } %>,
+    ChildNameModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

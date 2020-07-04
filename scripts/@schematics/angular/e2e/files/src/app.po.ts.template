@@ -1,0 +1,19 @@
+import { browser, by, element } from 'protractor';
+
+/** Main page class */
+export class AppPage {
+  /** Navigate to main page */
+  navigateTo(): Promise<unknown> {
+    return browser.get(browser.baseUrl) as Promise<unknown>;
+  }
+
+  /** Navigate to module */
+  navigateToModule(moduleRouterPath: string): Promise<unknown> {
+    return browser.get(browser.baseUrl + '/' + moduleRouterPath) as Promise<unknown>;
+  }
+
+  /** Test main page access */
+  getTitleText(): Promise<string> {
+    return element(by.css('<%= rootSelector %> .content span')).getText() as Promise<string>;
+  }
+}

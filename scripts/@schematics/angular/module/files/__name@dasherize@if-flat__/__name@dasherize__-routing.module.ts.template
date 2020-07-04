@@ -3,9 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 <% if (lazyRoute) { %>
 import { <%= classify(name) %>Component } from './<%= dasherize(name) %>.component';<% } %>
 
-// tslint:disable-next-line: max-line-length
-const routes: Routes = [<% if (lazyRoute) { %>{ path: '', component: <%= classify(name) %>Component }<% } %>];
+const routes: Routes = [<% if (lazyRoute) { %>  { path: '', component: <%= classify(name) %>Component }<% } %>
+];
 
+/**
+ * <%= classify(name) %> routing module.
+ * Separates routing concerns within the modules tier as delegated to by the original module.
+ */
 @NgModule({
   imports: [RouterModule.for<%= routingScope %>(routes)],
   exports: [RouterModule]

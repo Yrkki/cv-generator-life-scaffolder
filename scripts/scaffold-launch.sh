@@ -31,30 +31,47 @@ echo
 
 # serve application
 if $build; then
+  echo $'\033[0;32m'Building application...$'\033[0m'
   npm run build
-  echo $'\033[0;32m'Application built.$'\033[0m'
+  echo '  ' $'\033[1;30m'Application built.$'\033[0m'
+  echo
 fi
 if $test; then
-  env singleRun=true npm run test -- --code-coverage --watch=false
-  echo $'\033[0;32m'Application tested.$'\033[0m'
+  echo $'\033[0;32m'Testing application...$'\033[0m'
+  npm run test-once
+  echo '  ' $'\033[1;30m'Application tested.$'\033[0m'
+  echo
 fi
 if $lint; then
+  echo $'\033[0;32m'Linting application...$'\033[0m'
   npm run lint
-  echo $'\033[0;32m'Application linted.$'\033[0m'
+  echo '  ' $'\033[1;30m'Application linted.$'\033[0m'
+  echo
 fi
 if $e2e; then
+  echo $'\033[0;32m'End-to-end testing application...$'\033[0m'
   npm run e2e
-  echo $'\033[0;32m'Application end-to-end tested.$'\033[0m'
+  echo '  ' $'\033[1;30m'Application end-to-end tested.$'\033[0m'
+  echo
 fi
-if $serve; then
-  if $open; then
-    npm run start -- --open=true
-    echo $'\033[0;32m'Application opened.$'\033[0m'
-  else
-    npm run start
-    echo $'\033[0;32m'Application served.$'\033[0m'
-  fi
+if $doc; then
+  echo $'\033[0;32m'Documenting application...$'\033[0m'
+  npm run dev:test:document:package:action
+  echo '  ' $'\033[1;30m'Application documented.$'\033[0m'
+  echo
 fi
+if $open; then
+  echo $'\033[0;32m'Serving and opening application...$'\033[0m'
+  npm run open
+  echo '  ' $'\033[1;30m'Application served and opened.$'\033[0m'
+  echo
+elif $serve; then
+  echo $'\033[0;32m'Serving application...$'\033[0m'
+  npm run start
+  echo '  ' $'\033[1;30m'Application served.$'\033[0m'
+  echo
+fi
+
 
 echo $'\033[1;30m'Restoring directory...$'\033[0m'
 cd $pwd

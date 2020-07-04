@@ -1,4 +1,10 @@
 import { <%= classify(name) %> as I<%= classify(name) %> } from './../../interfaces/<%= dasherize(name) %>/<%= dasherize(name) %>';
 
+/**
+ * <%= classify(name) %> class.
+ * ~implements <%= classify(name) %>
+ */
 export class <%= classify(name) %> implements I<%= classify(name) %> {
+  /** Generic interface implementation member of the class */
+  Empty: {};
 }

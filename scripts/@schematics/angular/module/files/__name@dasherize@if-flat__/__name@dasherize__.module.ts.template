@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';<% if (commonModule) { %>
 import { CommonModule } from '@angular/common';<% } %><% if (lazyRouteWithoutRouteModule) { %>
 import { Routes, RouterModule } from '@angular/router';<% } %>
 <% if (routing || lazyRouteWithRouteModule) { %>
-import { <%= classify(name) %>RoutingModule } from './<%= dasherize(name) %>-routing.module';
-import { ChildNameModule } from '../child-name/child-name.module';<% } %>
+import { <%= classify(name) %>RoutingModule } from './<%= dasherize(name) %>-routing.module';<% } %>
+import { ChildNameModule } from '../child-name/child-name.module';
 <% if (lazyRouteWithoutRouteModule) { %>
 const routes: Routes = [
   { path: '', component: <%= classify(name) %>Component }
 ];<% } %>
 
+/** <%= classify(name) %> module. */
 @NgModule({
   declarations: [],
   imports: [<% if (commonModule) { %>

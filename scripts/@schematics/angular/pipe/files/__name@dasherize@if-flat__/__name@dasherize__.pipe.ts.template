@@ -1,0 +1,24 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+/**
+ * <%= classify(name) %> pipe.
+ * ~implements PipeTransform
+ */
+@Pipe({
+  name: '<%= camelize(name) %>'
+})
+export class <%= classify(name) %>Pipe implements PipeTransform {
+
+  /**
+   * Transforms an object.
+   * ~override
+   *
+   * @param value The object to process.
+   * @param args Possible args override parameter. Optional.
+   *
+   * @returns The transformed object.
+   */
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+}

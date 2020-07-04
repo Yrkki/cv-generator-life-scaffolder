@@ -16,13 +16,14 @@ cvgRoot=$1
 
 . ./scaffold-define.sh $cvgRoot
 
-ngGenrateClassModPath='\@schematics/angular/class/files/'
-ngGenrateClassMod=$(realpath './'$ngGenrateClassModPath'__name@dasherize____type__.ts.template')
-ngGenrateComponentModPath='\@schematics/angular/component/files/__name@dasherize@if-flat__/'
-ngGenrateComponentMod=$(realpath './'$ngGenrateComponentModPath'__name@dasherize__.__type@dasherize__.routing.ts.template')
-ngGenrateModuleModPath='\@schematics/angular/module/files/__name@dasherize@if-flat__/'
-ngGenrateModuleMod=$(realpath './'$ngGenrateModuleModPath'__name@dasherize__.module.ts.template')
-ngGenrateModuleRoutingMod=$(realpath './'$ngGenrateModuleModPath'__name@dasherize__-routing.module.ts.template')
+ngGenrateModPath='\@schematics/'
+ngGenrateMod=$(realpath './'$ngGenrateModPath'angular/')
+
+echo $'\033[0;32m'Modding the ng generate global commands...$'\033[0m'
+cp -r $ngGenrateMod 'C:\Users\Jorich\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@schematics/'
+echo '  ' $'\033[1;30m'Ng generate global commands modded.$'\033[0m'
+echo
+
 
 echo $'\033[0;32m'Switching to root directory:$'\033[0m'
 cd $cvgRoot
@@ -78,13 +79,7 @@ ls -F --color=always
 echo
 
 echo $'\033[0;32m'Modding the ng generate commands...$'\033[0m'
-cp -v $ngGenrateClassMod './node_modules/'$ngGenrateClassModPath
-echo
-cp -v $ngGenrateComponentMod './node_modules/'$ngGenrateComponentModPath
-echo
-cp -v $ngGenrateModuleMod './node_modules/'$ngGenrateModuleModPath
-echo
-cp -v $ngGenrateModuleRoutingMod './node_modules/'$ngGenrateModuleModPath
+cp -r $ngGenrateMod './node_modules/'$ngGenrateModPath
 echo '  ' $'\033[1;30m'Ng generate commands modded.$'\033[0m'
 echo
 
@@ -99,7 +94,7 @@ do
     --help=false \
     --interactive=false \
     \
-    --lintFix=true \
+    --lintFix=false \
     --skipTests=false \
     \
     1> /dev/null
@@ -112,7 +107,51 @@ echo $'\033[0;32m'Generating ${#components[@]} components:$'\033[0m'
 for i in "${!components[@]}"
 do
   echo '  ' $'\033[0;34m'Generating$'\033[0m' ${components[$i]} $'\033[0;34m'component \($((i+1)) of ${#components[@]}\):$'\033[0m'
-  :
+  ng generate component components/${components[$i]} \
+    --defaults=true \
+    --dryRun=false \
+    --force=true \
+    --help=false \
+    --interactive=false \
+    \
+    --lintFix=false \
+    \
+    1> /dev/null
+    # --changeDetection=Default \
+    # --displayBlock=false \
+    # --entryComponent=false \
+    # --export=false \
+    # --flat=false \
+    # --inlineStyle=false \
+    # --inlineTemplate=false \
+    # --module=module \
+    # --prefix=prefix \
+    # --project=project \
+    # --selector=selector \
+    # --skipImport=false \
+    # --skipSelector=false \
+    # --skipTests=false \
+    # --style=scss \
+    # --type='routing' \
+    # --viewEncapsulation=Emulated \
+done
+echo
+
+echo $'\033[0;32m'Generating ${#enums[@]} enums:$'\033[0m'
+for i in "${!enums[@]}"
+do
+  echo '  ' $'\033[0;34m'Generating$'\033[0m' ${enums[$i]} $'\033[0;34m'enum \($((i+1)) of ${#enums[@]}\):$'\033[0m'
+  ng generate enum enums/${enums[$i]} \
+    --defaults=true \
+    --dryRun=false \
+    --force=true \
+    --help=false \
+    --interactive=false \
+    \
+    --lintFix=false \
+    \
+    1> /dev/null
+    # --project=project \
 done
 echo
 
@@ -120,7 +159,7 @@ echo $'\033[0;32m'Generating ${#guards[@]} guards:$'\033[0m'
 for i in "${!guards[@]}"
 do
   echo '  ' $'\033[0;34m'Generating$'\033[0m' ${guards[$i]} $'\033[0;34m'guard \($((i+1)) of ${#guards[@]}\):$'\033[0m'
-  ng generate module guards/${guards[$i]}/${guards[$i]} \
+  ng generate guard guards/${guards[$i]} \
     --defaults=true \
     --dryRun=false \
     --force=true \
@@ -128,7 +167,7 @@ do
     --interactive=false \
     \
     --flat=false \
-    --lintFix=true \
+    --lintFix=false \
     --skipTests=false \
     \
     1> /dev/null
@@ -148,7 +187,7 @@ do
     --help=false \
     --interactive=false \
     \
-    --lintFix=true \
+    --lintFix=false \
     \
     1> /dev/null
     # --prefix=prefix \
@@ -161,19 +200,23 @@ echo
 
 echo $'\033[0;32m'Generating ${#modules[@]} modules:$'\033[0m'
 
-echo '  ' $'\033[0;34m'Preparing app module...$'\033[0m'
+# Declarations
 appFile='src/app/app.module.ts'
-echo '    ' $'\033[1;30m'App module:$'\033[0m' $appFile
-
-# inject declaration template
 declarationLine="import { ChildNameModule } from '\.\/modules\/child-name\/child-name\.module';"
-sed -i -e "s/\(^.*\)\(\/app-routing.module\)\(.*$\)/\1\2\3\n$declarationLine/g" $appFile
-echo '    ' $'\033[1;30m'Declaration template injected.$'\033[0m'
-
-# inject import template
 importLine="ChildNameModule,"
-sed -i -e "s/\(^ *\)AppRoutingModule\(.*$\)/\1AppRoutingModule\2,\n\1$importLine/g" $appFile
-echo '    ' $'\033[1;30m'Import template injected.$'\033[0m'
+
+# ### This runtime injection section is currently swapped with ahead-of-time declarations in the templates
+
+# echo '  ' $'\033[0;34m'Preparing app module...$'\033[0m'
+# echo '    ' $'\033[1;30m'App module:$'\033[0m' $appFile
+
+# # inject declaration template
+# sed -i -e "s/\(^.*\)\(\/app-routing.module\)\(.*$\)/\1\2\3\n$declarationLine/g" $appFile
+# echo '    ' $'\033[1;30m'Declaration template injected.$'\033[0m'
+
+# # inject import template
+# sed -i -e "s/\(^ *\)AppRoutingModule\(.*$\)/\1AppRoutingModule\2,\n\1$importLine/g" $appFile
+# echo '    ' $'\033[1;30m'Import template injected.$'\033[0m'
 
 # generate modules
 for i in "${!modules[@]}"
@@ -193,7 +236,7 @@ do
     --interactive=false \
     \
     --flat=false \
-    --lintFix=true \
+    --lintFix=false \
     --module=$moduleParameter \
     --route=${modules[$i]} \
     --routing=true \
@@ -252,8 +295,24 @@ do
     echo '      ' $'\033[1;30m'Declaration substituted.$'\033[0m'
   fi  
 
-  echo '      ' $'\033[1;30m'Registering component with$'\033[0m' ${parentComponentFile} $'\033[1;30m'parent...$'\033[0m'
-  echo -e "\n<p>\n  <a href=\"/"${moduleDasherized}"\">"${moduleDasherized}"</a>\n  <app-"${moduleDasherized}"></app-"${moduleDasherized}">\n</p>" >> $parentComponentFile
+  echo -n '      ' $'\033[1;30m'Registering component with$'\033[0m' $parentComponentFile $'\033[1;30m'parent...$'\033[0m'
+  echo -e "\n<p>\n  <a href=\"/$moduleDasherized\">$moduleDasherized</a>\n  <app-$moduleDasherized></app-$moduleDasherized>\n</p>" >> $parentComponentFile
+  echo $'\033[1;30m'' (done)'$'\033[0m'
+
+  echo -n '      ' $'\033[1;30m'Registering component with end-to-end tests...$'\033[0m'
+  e2eTestFile='e2e\src\app.e2e-spec.ts'
+  e2eTestPlaceholder='\/\/ \[% e2e-test-placeholder %\]'
+  e2eTestContentDetection=$(echo -n -e "it('should be able to navigate to the $moduleClassified module'")
+  e2eTestContent=$(echo -n -e "$e2eTestContentDetection, () => {\\
+    expect(() => page.navigateToModule('$moduleDasherized')).not.toThrowError();\\
+  });\\
+\\
+  "$e2eTestPlaceholder | tr '\n' 'n')
+  if ! grep -q "$e2eTestContentDetection" $e2eTestFile
+  then
+    sed -i -e "s/$e2eTestPlaceholder/$e2eTestContent/g" $e2eTestFile
+  fi
+  echo $'\033[1;30m'' (done)'$'\033[0m'
 done
 echo '  ' $'\033[0;34m'Finalizing ${#modules[@]} modules:$'\033[0m'
 for i in "${!modules[@]}"
@@ -300,7 +359,7 @@ do
     --help=false \
     --interactive=false \
     \
-    --lintFix=true \
+    --lintFix=false \
     \
     1> /dev/null
     # --prefix=prefix \
@@ -319,7 +378,7 @@ do
     --help=false \
     --interactive=false \
     \
-    --lintFix=true \
+    --lintFix=false \
     \
     1> /dev/null
     # --prefix=prefix \
