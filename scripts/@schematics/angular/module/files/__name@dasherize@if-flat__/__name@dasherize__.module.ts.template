@@ -8,7 +8,6 @@ import { ChildNameModule } from '../child-name/child-name.module';
 const routes: Routes = [
   { path: '', component: <%= classify(name) %>Component }
 ];<% } %>
-
 /** <%= classify(name) %> module. */
 @NgModule({
   declarations: [],

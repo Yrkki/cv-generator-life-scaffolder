@@ -6,5 +6,5 @@ import { <%= classify(name) %> as I<%= classify(name) %> } from './../../interfa
  */
 export class <%= classify(name) %> implements I<%= classify(name) %> {
   /** Generic interface implementation member of the class */
-  Empty: {};
+  empty: {};
 }

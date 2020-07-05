@@ -117,7 +117,8 @@ services=('chart' 'check-for-update' 'component-outlet-injector' 'data' 'excel-d
 #   'test-interface-two' \
 #   'test-interface-three' \
 #   'test-interface-four' \
-#   'test-interface-five')
+#   'test-interface-five' \
+#   'test-interface-six/test-interface-six')
 # # implementations=( \
 # #   'test-class-one/test-interface-one' \
 # #   'test-class-two/test-interface-two' \

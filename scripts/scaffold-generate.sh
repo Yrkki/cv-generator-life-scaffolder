@@ -180,7 +180,9 @@ echo $'\033[0;32m'Generating ${#interfaces[@]} interfaces:$'\033[0m'
 for i in "${!interfaces[@]}"
 do
   echo '  ' $'\033[0;34m'Generating$'\033[0m' ${interfaces[$i]} $'\033[0;34m' interface \($((i+1)) of ${#interfaces[@]}\):$'\033[0m'
-  ng generate interface interfaces/${interfaces[$i]} \
+  if [ ! ${interfaces[$i]}=="*\/*" ] ; then interface=${interfaces[$i]}/${interfaces[$i]} ; else interface=${interfaces[$i]}; fi
+  echo '    ' $'\033[0;35m'Using the$'\033[0m' $interface $'\033[0;35m' name.$'\033[0m'
+  ng generate interface interfaces/$interface \
     --defaults=true \
     --dryRun=false \
     --force=true \
