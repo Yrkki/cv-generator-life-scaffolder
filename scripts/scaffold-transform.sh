@@ -33,10 +33,15 @@ componentsPath=$(pwd)'/src/app/modules/**/*.component.*'
 echo $'\033[0;32m'Arranging components...$'\033[0m'
 for i in $(find $componentsPath -maxdepth 2 -type f)
 do
-  echo '  ' $'\033[0;34m'Moving$'\033[0m' $i $'\033[0;34m'component file:$'\033[0m'
-  dest=$(eval echo $i | sed -e 's/modules/components/g')
-  mkdir -p $(dirname "${dest}")
-  mv -f $i $dest
+  if [ $keepComponentFiles == true ]; then
+    echo '  ' $'\033[0;34m'Moving$'\033[0m' $i $'\033[0;34m'component file:$'\033[0m'
+    dest=$(eval echo $i | sed -e 's/modules/components/g')
+    mkdir -p $(dirname "${dest}")
+    mv -f $i $dest
+  else
+    echo '  ' $'\033[0;34m'Removing$'\033[0m' $i $'\033[0;34m'component file:$'\033[0m'
+    rm -f $i
+  fi
 done
 echo
 
@@ -49,24 +54,29 @@ do
   moduleName=$(eval echo $(basename "${i%%.*}") | sed -e 's/-routing//g')
 
   echo '    ' $'\033[0;35m'Processing module components:$'\033[0m' $moduleName$'\033[1;30m'.$'\033[0m'
-  if [[ ! $i == *"-routing"* ]]; then
-    # classify
-    moduleClassified=$(echo "$moduleName" \
-      | sed 's/-\([a-z]\)/\U\1/g;s/^\([a-z]\)/\U\1/g')
-    # echo '      ' $moduleClassified
+  if [ $allowRoutingComponent == true ]; then
+    if [[ ! $i == *"-routing"* ]]; then
+      # classify
+      moduleClassified=$(echo "$moduleName" \
+        | sed 's/-\([a-z]\)/\U\1/g;s/^\([a-z]\)/\U\1/g')
+      # echo '      ' $moduleClassified
 
-    # duplicate component declaration line
-    sed -i -e "s/\(^import.*\)$moduleClassified\(Component.*\)\(';$\)/\1"$moduleClassified"Component as "$moduleClassified"Base\2\3\n\1$moduleClassified\2\3/g" $i
-    echo '      ' $'\033[1;30m'Component declaration line duplicated.$'\033[0m'
+      # duplicate component declaration line
+      sed -i -e "s/\(^import.*\)$moduleClassified\(Component.*\)\(';$\)/\1"$moduleClassified"Component as "$moduleClassified"Base\2\3\n\1$moduleClassified\2\3/g" $i
+      echo '      ' $'\033[1;30m'Component declaration line duplicated.$'\033[0m'
 
-    # duplicate component module declarations membership
-    sed -i -e "s/\(declarations: \[.*\)$moduleClassified\(.*$\)/\1"$moduleClassified"BaseComponent, $moduleClassified\2/g" $i
-    echo '      ' $'\033[1;30m'Component module declarations membership duplicated.$'\033[0m'
+      # duplicate component module declarations membership
+      sed -i -e "s/\(declarations: \[.*\)$moduleClassified\(.*$\)/\1"$moduleClassified"BaseComponent, $moduleClassified\2/g" $i
+      echo '      ' $'\033[1;30m'Component module declarations membership duplicated.$'\033[0m'
+    fi
+
+    # reroute module components
+    sed -i -e "s/\.\/$moduleName.component/..\/..\/components\/$moduleName\/$moduleName.component/g" $i
+    sed -i -e "/ as /! s/$moduleName.component/$moduleName.component.routing/g" $i
+  else
+    # reroute module components
+    sed -i -e "s/\.\/$moduleName.component/..\/..\/components\/$moduleName\/$moduleName.component/g" $i
   fi
-
-  # reroute module components
-  sed -i -e "s/\.\/$moduleName.component/..\/..\/components\/$moduleName\/$moduleName.component/g" $i
-  sed -i -e "/ as /! s/$moduleName.component/$moduleName.component.routing/g" $i
   echo '      ' $'\033[1;30m'Module components rerouted.$'\033[0m'
 done
 echo

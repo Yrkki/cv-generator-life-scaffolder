@@ -16,6 +16,26 @@ cvgRoot=$1
 
 . ./scaffold-define.sh $cvgRoot
 
+
+echo $'\033[0;32m'Redirecting output...$'\033[0m'
+# Create an out_fd variable that points to stdout (FD 1) if dexflag != "false", or to a new
+# handle on /dev/null otherwise
+if [ $verbose == true ]; then
+  echo '  ' $'\033[1;30m'Redirecting output to device: 1 $'\033[0m'
+  out_fd=1 # use FD 1 (stdout)
+  # exec {out_fd}>&1 # use FD 1 (stdout)
+else
+  echo '  ' $'\033[1;30m'Redirecting output to device: /dev/null $'\033[0m'
+  exec {out_fd}>/dev/null # maybe put 2>&1 as well to suppress stderr
+fi
+
+# Close file when needed. To be done at the end of processing...
+# # if out_fd is not stdin/stdout/stderr, then go ahead and close it when done.
+# (( out_fd > 2 )) && exec {out_fd}>&-
+echo '    ' $'\033[1;30m'Output redirected to device: "$out_fd" $'\033[0m'
+echo
+
+
 ngGenrateModPath='\@schematics/'
 ngGenrateMod=$(realpath './'$ngGenrateModPath'angular/')
 
@@ -67,7 +87,7 @@ if [ $generateApp == true ]; then
     --style=scss \
     --verbose=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
 fi
 echo
 
@@ -97,7 +117,7 @@ do
     --lintFix=false \
     --skipTests=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --project=project \
     # --type=type \
 done
@@ -116,7 +136,7 @@ do
     \
     --lintFix=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --changeDetection=Default \
     # --displayBlock=false \
     # --entryComponent=false \
@@ -150,7 +170,7 @@ do
     \
     --lintFix=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --project=project \
 done
 echo
@@ -170,7 +190,7 @@ do
     --lintFix=false \
     --skipTests=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --interface \
     # --project=project \
 done
@@ -191,7 +211,7 @@ do
     \
     --lintFix=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --prefix=prefix \
     # --project=project \
 
@@ -224,7 +244,8 @@ importLine="ChildNameModule,"
 for i in "${!modules[@]}"
 do
   echo '  ' $'\033[0;34m'Generating ${modulesParent[$i]}$'\033[0m' ${modules[$i]} $'\033[0;34m'module \($((i+1)) of ${#modules[@]}\):$'\033[0m'
-  if [ -z ${modulesParent[$i]} ]; then
+  if [[ ${modulesParent[$i]} =~ ^(ROOT|)$ ]]; then
+    echo '    ' $'\033[1;30m'Parent is root$'\033[0m'
     moduleParameter=/app
   else
     moduleParameter=modules/${modulesParent[$i]}
@@ -244,12 +265,12 @@ do
     --routing=true \
     --routingScope=Child \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --project=project \
 
   echo '    ' $'\033[0;35m'Registering ${modules[$i]} module with ${modulesParent[$i]} parent...$'\033[0m'
 
-  if [ -z ${modulesParent[$i]} ]; then
+  if [[ ${modulesParent[$i]} =~ ^(ROOT|)$ ]]; then
     parentFile=$appFile
     parentComponentFile=/dev/null
   else
@@ -363,7 +384,7 @@ do
     \
     --lintFix=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --prefix=prefix \
     # --project=project \
 done
@@ -382,7 +403,7 @@ do
     \
     --lintFix=false \
     \
-    1> /dev/null
+    1>&"$out_fd"
     # --prefix=prefix \
     # --project=project \
 done

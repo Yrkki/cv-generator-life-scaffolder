@@ -2,9 +2,9 @@ import { <%= classify(name) %> as I<%= classify(name) %> } from './../../interfa
 
 /**
  * <%= classify(name) %> class.
- * ~implements <%= classify(name) %>
+ * ~implements {@link <%= classify(name) %>}
  */
 export class <%= classify(name) %> implements I<%= classify(name) %> {
   /** Generic interface implementation member of the class */
-  empty: {};
+  empty = {};
 }

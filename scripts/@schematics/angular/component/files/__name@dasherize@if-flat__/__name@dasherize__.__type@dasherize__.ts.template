@@ -1,7 +1,7 @@
 import { Component, OnInit<% if(!!viewEncapsulation) { %>, ViewEncapsulation<% }%><% if(changeDetection !== 'Default') { %>, ChangeDetectionStrategy<% }%> } from '@angular/core';
 
 /**
- * <%= classify(name) %><%= classify(type) %> component.
+ * <%= classify(name) %> component.
  * ~implements OnInit
  */
 @Component({<% if(!skipSelector) {%>
@@ -26,7 +26,7 @@ import { Component, OnInit<% if(!!viewEncapsulation) { %>, ViewEncapsulation<% }
 export class <%= classify(name) %><%= classify(type) %> implements OnInit {
 
   /**
-   * Constructs the <%= classify(name) %><%= classify(type) %> component.
+   * Constructs the <%= classify(name) %> component.
    * ~constructor
    */
   constructor() { }

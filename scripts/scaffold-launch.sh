@@ -30,35 +30,42 @@ ls -F --color=always
 echo
 
 # serve application
-if $build; then
-  echo $'\033[0;32m'Building application...$'\033[0m'
-  npm run build
-  echo '  ' $'\033[1;30m'Application built.$'\033[0m'
+if $startPipeline; then
+  echo $'\033[0;32m'Running devsecops pipeline...$'\033[0m'
+  npm run START-PIPELINE
+  echo '  ' $'\033[1;30m'Devsecops pipeline finished.$'\033[0m'
   echo
-fi
-if $test; then
-  echo $'\033[0;32m'Testing application...$'\033[0m'
-  npm run test-once
-  echo '  ' $'\033[1;30m'Application tested.$'\033[0m'
-  echo
-fi
-if $lint; then
-  echo $'\033[0;32m'Linting application...$'\033[0m'
-  npm run lint
-  echo '  ' $'\033[1;30m'Application linted.$'\033[0m'
-  echo
-fi
-if $e2e; then
-  echo $'\033[0;32m'End-to-end testing application...$'\033[0m'
-  npm run e2e
-  echo '  ' $'\033[1;30m'Application end-to-end tested.$'\033[0m'
-  echo
-fi
-if $doc; then
-  echo $'\033[0;32m'Documenting application...$'\033[0m'
-  npm run dev:test:document:package:action
-  echo '  ' $'\033[1;30m'Application documented.$'\033[0m'
-  echo
+else
+  if $build; then
+    echo $'\033[0;32m'Building application...$'\033[0m'
+    npm run build
+    echo '  ' $'\033[1;30m'Application built.$'\033[0m'
+    echo
+  fi
+  if $test; then
+    echo $'\033[0;32m'Testing application...$'\033[0m'
+    npm run test-once
+    echo '  ' $'\033[1;30m'Application tested.$'\033[0m'
+    echo
+  fi
+  if $lint; then
+    echo $'\033[0;32m'Linting application...$'\033[0m'
+    npm run lint
+    echo '  ' $'\033[1;30m'Application linted.$'\033[0m'
+    echo
+  fi
+  if $e2e; then
+    echo $'\033[0;32m'End-to-end testing application...$'\033[0m'
+    npm run e2e
+    echo '  ' $'\033[1;30m'Application end-to-end tested.$'\033[0m'
+    echo
+  fi
+  if $doc; then
+    echo $'\033[0;32m'Documenting application...$'\033[0m'
+    npm run dev:test:document:package:action
+    echo '  ' $'\033[1;30m'Application documented.$'\033[0m'
+    echo
+  fi
 fi
 if $open; then
   echo $'\033[0;32m'Serving and opening application...$'\033[0m'

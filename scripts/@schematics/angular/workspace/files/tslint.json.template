@@ -5,12 +5,6 @@
   ],
   "rules": {
     "adjacent-overload-signatures": true,
-    "angular-whitespace": [
-      false,
-      "check-interpolation",
-      "check-pipe",
-      "check-semicolon"
-    ],
     "align": {
       "options": [
         "parameters",
@@ -98,11 +92,11 @@
     ],
     "max-file-line-count": [
       true,
-      1200
+      800
     ],
     "max-line-length": [
       true,
-      250
+      140
     ],
     "member-access": false,
     "member-ordering": [
@@ -174,9 +168,8 @@
     "no-unsafe-finally": true,
     "no-unused-css": true,
     "no-unused-expression": true,
-    "no-use-before-declare": false,
     "no-var-keyword": true,
-    "no-var-requires": false,
+    "no-var-requires": true,
     "object-literal-key-quotes": [
       true,
       "as-needed"
@@ -282,7 +275,7 @@
         "allow-pascal-case"
       ]
     },
-    "use-component-selector": false,
+    "use-component-selector": true,
     "use-component-view-encapsulation": true,
     "use-isnan": true,
     "use-life-cycle-interface": true,
