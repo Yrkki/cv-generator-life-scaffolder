@@ -11,6 +11,19 @@ ls -F --color=always
 echo
 
 
+function processTemplate {
+  packageJsonFile=$1
+  echo '  ' $'\033[1;30m'Processing the $'\033[0m' $packageJsonFile $'\033[1;30m'template...$'\033[0m'
+  favicon=""
+  sed -i -e "s/<%= utils.favicon(name) %>/$favicon/g" $packageJsonFile
+  join=$(echo ${appName,,} | sed "s/-//g")
+  sed -i -e "s/<%= utils.join(name) %>/$join/g" $packageJsonFile
+  titlecasePlus=$(echo ${appName^} | sed 's/-\(.\)/ \U\1/g' | sed -r 's/(Cv|Icb)/\U\1/g')
+  sed -i -e "s/<%= utils.titlecasePlus(name) %>/$titlecasePlus/g" $packageJsonFile
+  uppersnakecase=$(echo ${appName^^} | sed "s/-/_/g")
+  sed -i -e "s/<%= utils.uppersnakecase(name) %>/$uppersnakecase/g" $packageJsonFile
+}  
+
 cvgRoot=$1
 # echo cvgRoot= $cvgRoot
 
@@ -40,7 +53,8 @@ ngGenrateModPath='\@schematics/'
 ngGenrateMod=$(realpath './'$ngGenrateModPath'angular/')
 
 echo $'\033[0;32m'Modding the ng generate global commands...$'\033[0m'
-cp -r $ngGenrateMod 'C:\Users\Jorich\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@schematics/'
+cp -r $ngGenrateMod 'C:\Users\'$USERNAME'\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@schematics\'
+processTemplate 'C:\Users\'$USERNAME'\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@schematics\angular\workspace\files\package.json.template'
 echo '  ' $'\033[1;30m'Ng generate global commands modded.$'\033[0m'
 echo
 
@@ -100,6 +114,7 @@ echo
 
 echo $'\033[0;32m'Modding the ng generate commands...$'\033[0m'
 cp -r $ngGenrateMod './node_modules/'$ngGenrateModPath
+processTemplate './node_modules/'$ngGenrateModPath'\angular\workspace\files\package.json.template'
 echo '  ' $'\033[1;30m'Ng generate commands modded.$'\033[0m'
 echo
 
