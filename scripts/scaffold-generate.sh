@@ -12,17 +12,64 @@ echo
 
 
 function processTemplate {
-  packageJsonFile=$1
-  echo '  ' $'\033[1;30m'Processing the $'\033[0m' $packageJsonFile $'\033[1;30m'template...$'\033[0m'
-  favicon=""
-  sed -i -e "s/<%= utils.favicon(name) %>/$favicon/g" $packageJsonFile
-  join=$(echo ${appName,,} | sed "s/-//g")
-  sed -i -e "s/<%= utils.join(name) %>/$join/g" $packageJsonFile
-  titlecasePlus=$(echo ${appName^} | sed 's/-\(.\)/ \U\1/g' | sed -r 's/(Cv|Icb)/\U\1/g')
-  sed -i -e "s/<%= utils.titlecasePlus(name) %>/$titlecasePlus/g" $packageJsonFile
-  uppersnakecase=$(echo ${appName^^} | sed "s/-/_/g")
-  sed -i -e "s/<%= utils.uppersnakecase(name) %>/$uppersnakecase/g" $packageJsonFile
-}  
+  targetFile=$1
+  echo '  ' $'\033[1;30m'Processing the $'\033[0m' $targetFile $'\033[1;30m'template...$'\033[0m'
+
+  echo -n '    ' $'\033[1;30m'':'
+  joinRegEx="s/-//g"
+  splitRegEx="s/-/ /g"
+  snakeRegEx="s/-/_/g"
+  camelizeRegEx="s/-(.)/ \U\1/g"
+  plusRegEx="s/\b(Cv|Icb|Id|Tv)\b/\U\1/gI"
+
+  echo -n ' dasherize'
+  dasherize=$(echo ${appName,,})
+  sed -i -e "s/<%= utils.dasherize(name) %>/$dasherize/g" $targetFile
+
+  echo -n ' favicon'
+  favicon=" --customFavicon \\\\\\\".\/src\/favicon\/android-chrome-512x512.png\\\\\\\""
+  sed -i -e "s/<%= utils.favicon(name) %>/$favicon/g" $targetFile
+
+  echo -n ' join'
+  join=$(echo ${dasherize} | sed -r "${joinRegEx}")
+  sed -i -e "s/<%= utils.join(name) %>/$join/g" $targetFile
+
+  echo -n ' spacify'
+  spacify=$(echo ${appName^} | sed -r "${splitRegEx}")
+  sed -i -e "s/<%= utils.spacify(name) %>/$spacify/g" $targetFile
+  echo -n ' spacifyPlus'
+  spacifyPlus=$(echo ${spacify} | sed -r "${plusRegEx}")
+  sed -i -e "s/<%= utils.spacifyPlus(name) %>/$spacifyPlus/g" $targetFile
+
+  echo -n ' titlecase'
+  titlecase=$(echo ${appName^} | sed -r "${camelizeRegEx}")
+  sed -i -e "s/<%= utils.titlecase(name) %>/$titlecase/g" $targetFile
+  echo -n ' titlecasePlus'
+  titlecasePlus=$(echo ${titlecase} | sed -r "${plusRegEx}")
+  sed -i -e "s/<%= utils.titlecasePlus(name) %>/$titlecasePlus/g" $targetFile
+
+  echo -n ' classify'
+  classify=$(echo ${titlecase} | sed -r "${joinRegEx}")
+  sed -i -e "s/<%= utils.classify(name) %>/$classify/g" $targetFile
+
+  echo -n ' uppersnakecase'
+  uppersnakecase=$(echo ${appName^^} | sed -r "${snakeRegEx}")
+  sed -i -e "s/<%= utils.uppersnakecase(name) %>/$uppersnakecase/g" $targetFile
+
+  echo $'\033[1;30m'' (done)'$'\033[0m'
+}
+
+function processAllTemplates {
+  templatePath=$1
+  processTemplate $templatePath'/workspace/files/package.json.template'
+  processTemplate $templatePath'/workspace/files/README.md.template'
+  for i in $(find $templatePath/application/files -maxdepth 2 -type f); do
+    processTemplate $i
+  done
+  for i in $(find $templatePath/application/files/src/environments -maxdepth 1 -type f); do
+    processTemplate $i
+  done
+}
 
 cvgRoot=$1
 # echo cvgRoot= $cvgRoot
@@ -49,14 +96,28 @@ echo '    ' $'\033[1;30m'Output redirected to device: "$out_fd" $'\033[0m'
 echo
 
 
-ngGenrateModPath='\@schematics/'
-ngGenrateMod=$(realpath './'$ngGenrateModPath'angular/')
+# Preparing the ng generate global and local commands paths
+modSchematicsPath='@schematics/'
+modNodeModulesPath='node_modules/'
+modAngularPath='angular/'
+modAngularCliPath='C:\Users\'"$USERNAME"'\AppData\Roaming\npm\node_modules\@angular\cli\'
+modNodeModulesSchematicsPath="$modNodeModulesPath""$modSchematicsPath"
+modNodeModulesSchematicsAngularPath="$modNodeModulesPath""$modSchematicsPath""$modAngularPath"
+modSchematicsAngularPath="$modSchematicsPath""$modAngularPath"
+modTemplateAngularPath=$(realpath "$modSchematicsAngularPath")
+modGlobalPath=$(realpath "$modAngularCliPath""$modNodeModulesSchematicsPath")
+modGlobalAngularPath=$(realpath "$modAngularCliPath""$modNodeModulesSchematicsAngularPath")
+modTemplatePath="$modNodeModulesSchematicsPath"
 
-echo $'\033[0;32m'Modding the ng generate global commands...$'\033[0m'
-cp -r $ngGenrateMod 'C:\Users\'$USERNAME'\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@schematics\'
-processTemplate 'C:\Users\'$USERNAME'\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@schematics\angular\workspace\files\package.json.template'
-echo '  ' $'\033[1;30m'Ng generate global commands modded.$'\033[0m'
-echo
+if [ $modGlobalSchematics == true ]; then
+  echo $'\033[0;32m'Modding the ng generate global commands...$'\033[0m'
+  echo '  ' $'\033[1;30m'Copying template schematics from $'\033[0m' $modTemplateAngularPath
+  echo '    ' $'\033[1;30m'to global $'\033[0m' $modGlobalPath $'\033[1;30m'...$'\033[0m'
+  cp -r $modTemplateAngularPath $modGlobalPath
+  processAllTemplates $modGlobalAngularPath
+  echo '  ' $'\033[1;30m'Ng generate global commands modded.$'\033[0m'
+  echo
+fi
 
 
 echo $'\033[0;32m'Switching to root directory:$'\033[0m'
@@ -99,7 +160,7 @@ if [ $generateApp == true ]; then
     --skipTests=false \
     --strict=true \
     --style=scss \
-    --verbose=false \
+    --verbose=$verbose \
     \
     1>&"$out_fd"
 fi
@@ -112,11 +173,14 @@ pwd
 ls -F --color=always
 echo
 
-echo $'\033[0;32m'Modding the ng generate commands...$'\033[0m'
-cp -r $ngGenrateMod './node_modules/'$ngGenrateModPath
-processTemplate './node_modules/'$ngGenrateModPath'\angular\workspace\files\package.json.template'
-echo '  ' $'\033[1;30m'Ng generate commands modded.$'\033[0m'
-echo
+if [ $modLocalSchematics == true ]; then
+  echo $'\033[0;32m'Modding the ng generate commands...$'\033[0m'
+  echo '  ' $'\033[1;30m'Copying global schematics from $'\033[0m' $modGlobalAngularPath
+  echo '    ' $'\033[1;30m'to local $'\033[0m' $modTemplatePath $'\033[1;30m'...$'\033[0m'
+  cp -r $modGlobalAngularPath $modTemplatePath
+  echo '  ' $'\033[1;30m'Ng generate commands modded.$'\033[0m'
+  echo
+fi
 
 echo $'\033[0;32m'Generating ${#classes[@]} classes:$'\033[0m'
 for i in "${!classes[@]}"

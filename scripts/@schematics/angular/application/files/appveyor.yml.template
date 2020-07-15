@@ -1,0 +1,30 @@
+version: 0.7.0.{build}
+
+branches:
+  only:
+    - master
+
+image: Visual Studio 2019
+
+environment:
+  matrix:
+  - nodejs_version: "Current"
+  custom_appveyor: yes
+
+matrix:
+  fast_finish: true
+
+before_build:
+  - ps: $env:package_node_version = Get-Content package.json | ConvertFrom-Json | Select -ExpandProperty engines | Select -ExpandProperty node
+  - ps: $env:package_node_version
+  - ps: $env:package_npm_version = Get-Content package.json | ConvertFrom-Json | Select -ExpandProperty engines | Select -ExpandProperty npm
+  - ps: $env:package_npm_version
+  - ps: $env:package_version = Get-Content package.json | ConvertFrom-Json | Select -ExpandProperty version
+  - ps: Update-AppveyorBuild -Version "$env:package_version.$env:APPVEYOR_BUILD_NUMBER"
+  - ps: Install-Product node $env:nodejs_version
+  - node --version
+  - npm --version
+  - npm ci
+
+build_script:
+  - npm run build

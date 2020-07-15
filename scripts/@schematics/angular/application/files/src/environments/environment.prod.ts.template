@@ -1,4 +1,13 @@
 /** Production environment */
 export const environment = {
-  production: true
+  production: true,
+  serverEndpointUri: 'http://localhost:3000',
+  hosts: ['localhost'],
+  <%= utils.uppersnakecase(name) %>_APPVEYOR_TOKEN: '',
+  <%= utils.uppersnakecase(name) %>_SKIP_REDIRECT_TO_HTTPS: '',
+
+  CHROME_BIN: 'google-chrome',
+
+  CI: 'false',
+  <%= utils.uppersnakecase(name) %>_AUDITING: false
 };

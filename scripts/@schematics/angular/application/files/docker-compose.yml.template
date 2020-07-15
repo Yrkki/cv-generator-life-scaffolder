@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  cv-generator-fe:
+    image: <%= utils.dasherize(name) %>
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5555:80
