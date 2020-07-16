@@ -89,51 +89,51 @@ services=('chart' 'check-for-update' 'component-outlet-injector' 'data' 'excel-d
 # pipes=()
 # services=()
 
-# classes=('test-class-one' 'test-class-two')
-# components=('test-component-one' 'test-component-two')
-# enums=('test-enum-one' 'test-enum-two')
-# guards=('test-guard-one' 'test-guard-two')
-# # interfaces=( \
-# #   'test-class-one/test-interface-one' \
-# #   'test-class-two/test-interface-two' \
-# #   'test-class-three/test-interface-three' \
-# #   'test-interface-four' \
-# #   'test-class-two/test-interface-five' \
-# #   'test-class-three/test-interface-five')
+classes=('test-class-one' 'test-class-two')
+components=('test-component-one' 'test-component-two')
+enums=('test-enum-one' 'test-enum-two')
+guards=('test-guard-one' 'test-guard-two')
 # interfaces=( \
-#   'test-class-one/test-class-one' \
-#   'test-class-two/test-class-two' \
-#   'test-interface-one' \
-#   'test-interface-two' \
-#   'test-interface-three' \
+#   'test-class-one/test-interface-one' \
+#   'test-class-two/test-interface-two' \
+#   'test-class-three/test-interface-three' \
 #   'test-interface-four' \
-#   'test-interface-five' \
-#   'test-interface-six/test-interface-six')
-# # implementations=( \
-# #   'test-class-one/test-interface-one' \
-# #   'test-class-two/test-interface-two' \
-# #   'test-class-two/test-interface-five' \
-# #   'test-class-three/test-interface-three' \
-# #   'test-class-three/test-interface-five')
-# modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary' 'project' 'general-timeline' 'footer' 'property' 'soc-bar')
-# modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'webpage')
-# modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary' 'project' 'general-timeline' 'footer' 'property')
-# modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio')
-# modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary' 'project')
-# modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio')
-# modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary')
-# modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio')
-# modules=('portfolio' 'webpage' 'navigation')
-# modulesParent=('ROOT' 'ROOT' 'portfolio')
-# modules=('webpage' 'soc-bar')
-# modulesParent=('ROOT' 'webpage')
-# modules=('portfolio' 'cv')
-# modulesParent=('ROOT'  'portfolio')
-# modules=('test-one' 'test-two')
-# modulesParent=('ROOT' 'ROOT')
-# pipes=('test-pipes-one' 'test-pipes-two')
-# services=('test-service-one' 'test-service-two')
-# routes=()
+#   'test-class-two/test-interface-five' \
+#   'test-class-three/test-interface-five')
+interfaces=( \
+  'test-class-one/test-class-one' \
+  'test-class-two/test-class-two' \
+  'test-interface-one' \
+  'test-interface-two' \
+  'test-interface-three' \
+  'test-interface-four' \
+  'test-interface-five' \
+  'test-interface-six/test-interface-six')
+# implementations=( \
+#   'test-class-one/test-interface-one' \
+#   'test-class-two/test-interface-two' \
+#   'test-class-two/test-interface-five' \
+#   'test-class-three/test-interface-three' \
+#   'test-class-three/test-interface-five')
+modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary' 'project' 'general-timeline' 'footer' 'property' 'soc-bar')
+modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'webpage')
+modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary' 'project' 'general-timeline' 'footer' 'property')
+modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio')
+modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary' 'project')
+modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio' 'portfolio')
+modules=('portfolio' 'webpage' 'navigation' 'search' 'cv' 'project-summary')
+modulesParent=('ROOT' 'ROOT' 'portfolio' 'portfolio' 'portfolio' 'portfolio')
+modules=('portfolio' 'webpage' 'navigation')
+modulesParent=('ROOT' 'ROOT' 'portfolio')
+modules=('webpage' 'soc-bar')
+modulesParent=('ROOT' 'webpage')
+modules=('portfolio' 'cv')
+modulesParent=('ROOT'  'portfolio')
+modules=('test-one' 'test-two')
+modulesParent=('ROOT' 'ROOT')
+pipes=('test-pipes-one' 'test-pipes-two')
+services=('test-service-one' 'test-service-two')
+routes=()
 
 appName='cv-generator-fe6'
 generateApp=true
@@ -142,9 +142,9 @@ verbose=true
 keepComponentFiles=true
 modGlobalSchematics=true
 modLocalSchematics=true
-startPipeline=true
+startPipeline=false
 # serve=true
-open=true
+open=false
 # build=true
 # test=true
 # lint=true

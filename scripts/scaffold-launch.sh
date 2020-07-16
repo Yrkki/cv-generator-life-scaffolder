@@ -31,9 +31,9 @@ echo
 
 # serve application
 if $startPipeline; then
-  echo $'\033[0;32m'Running devsecops pipeline...$'\033[0m'
+  echo $'\033[0;32m'Running DevSecOps CI/CD pipeline SD process...$'\033[0m'
   npm run START-PIPELINE
-  echo '  ' $'\033[1;30m'Devsecops pipeline finished.$'\033[0m'
+  echo '  ' $'\033[1;30m'DevSecOps CI/CD pipeline SD process finished.$'\033[0m'
   echo
 else
   if $build; then
