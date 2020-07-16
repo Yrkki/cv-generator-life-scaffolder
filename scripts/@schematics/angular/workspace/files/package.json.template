@@ -106,7 +106,7 @@
     "ops:deploy:package:dockerize:push:action": "bash ./launch \" npm-run-all dockerize-push \"",
     "dockerize-push": "bash ./launch \" docker push jorich/<%= utils.dasherize(name) %>:$npm_package_version && docker push jorich/<%= utils.dasherize(name) %>:latest \"",
     "ops:deploy:package:provision:action": "bash ./launch \" echo npm-run-all provision \"",
-    "provision": "bash ./launch \" cd ../<%= utils.dasherize(name) %>-life-terraform && terraform apply \"",
+    "provision": "bash ./launch \" cd ../cv-generator-life-terraform && terraform apply \"",
     "// OPERATE": ":",
     "ops:run:platform:action": "bash ./launch \" npm-run-all wake-up-the-dynos:* \"",
     "wake-up-the-dynos:heroku": "bash ./launch \" if [ ! \"$HEROKU\" ] ; then curl https://<%= utils.dasherize(name) %>.herokuapp.com/Webpage ; fi \"",
