@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo $'\033[1;33m'Running script scaffold
+echo $'\033[1;32m'Running script scaffold
 echo ------------------------------------------------------
 echo
 
@@ -25,7 +25,7 @@ ls -F --color=always
 echo
 
 SCAFFOLDER_TASK_PID=$!
-echo $'\033[0;33m'Scaffolder finished...$'\033[0m'
+echo $'\033[0;32m'Scaffolder finished...$'\033[0m'
 
 echo
 # read  -n 1 -p "x" input

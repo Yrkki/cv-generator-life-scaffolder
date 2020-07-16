@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo $'\033[1;33m'Running script scaffold-define-preprocess
+echo $'\033[1;32m'Running script scaffold-define-preprocess
 echo ------------------------------------------------------
 echo
 
@@ -63,7 +63,7 @@ ls -F --color=always
 echo
 
 SCAFFOLD_GENERATE_TASK_PID=$!
-echo $'\033[0;33m'Scaffolder define preprocess finished...$'\033[0m'
+echo $'\033[0;32m'Scaffolder define preprocess finished...$'\033[0m'
 
 echo
 # read  -n 1 -p "x" input

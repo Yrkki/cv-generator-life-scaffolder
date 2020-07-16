@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo $'\033[1;33m'Running script scaffold-transform
+echo $'\033[1;32m'Running script scaffold-transform
 echo ------------------------------------------------------
 echo
 
@@ -89,7 +89,7 @@ ls -F --color=always
 echo
 
 SCAFFOLD_TRANSFORM_TASK_PID=$!
-echo $'\033[0;33m'Scaffolder transform finished...$'\033[0m'
+echo $'\033[0;32m'Scaffolder transform finished...$'\033[0m'
 
 echo
 # read  -n 1 -p "x" input
