@@ -92,6 +92,7 @@
     "cov-copy": "bash ./launch \" cp -r coverage dist/coverage/ \"",
     "doc-copy": "bash ./launch \" cp -r documentation dist/documentation/ \"",
     "logs-copy": "bash ./launch \" cp -r logs dist/logs/ \"",
+    "// RELEASE": ":",
     "ops:release:package:action": "bash ./launch \" npm run bump \"",
     "bump": "bash ./launch \" npm run bump-patch \"",
     "bump-patch": "bash ./launch \" npm --no-git-tag-version version patch \"",
