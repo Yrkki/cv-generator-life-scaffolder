@@ -7,7 +7,7 @@ echo
 echo Scaffolder launch starting...$'\033[0m'
 pwd=$(pwd)
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 
@@ -19,14 +19,14 @@ cvgRoot=$1
 echo $'\033[0;32m'Switching to root directory:$'\033[0m'
 cd $cvgRoot
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 echo $'\033[0;32m'Switching to application directory:$'\033[0m'
 mkdir -p $appName
 cd $appName
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 # serve application
@@ -83,7 +83,7 @@ fi
 echo $'\033[1;30m'Restoring directory...$'\033[0m'
 cd $pwd
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 SCAFFOLD_TRANSFORM_TASK_PID=$!

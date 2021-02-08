@@ -7,7 +7,7 @@ echo
 echo Scaffolder define preprocess starting...$'\033[0m'
 pwd=$(pwd)
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 
@@ -59,7 +59,7 @@ echo
 echo $'\033[1;30m'Restoring directory...$'\033[0m'
 cd $pwd
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 SCAFFOLD_GENERATE_TASK_PID=$!

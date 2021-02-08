@@ -7,7 +7,7 @@ echo
 echo Starting scaffolder...$'\033[0m'
 pwd=$(pwd)
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 
@@ -21,7 +21,7 @@ cvgRoot=$pwd/'../..'
 echo $'\033[1;30m'Restoring directory...$'\033[0m'
 cd $pwd
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 SCAFFOLDER_TASK_PID=$!

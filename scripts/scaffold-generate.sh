@@ -7,7 +7,7 @@ echo
 echo Scaffolder generate starting...$'\033[0m'
 pwd=$(pwd)
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 
@@ -123,7 +123,7 @@ fi
 echo $'\033[0;32m'Switching to root directory:$'\033[0m'
 cd $cvgRoot
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 # # ng generate appShell
@@ -170,7 +170,7 @@ echo $'\033[0;32m'Switching to application directory:$'\033[0m'
 mkdir -p $appName
 cd $appName
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 if [ $modLocalSchematics == true ]; then
@@ -492,7 +492,7 @@ echo
 echo $'\033[1;30m'Restoring directory...$'\033[0m'
 cd $pwd
 pwd
-ls -F --color=always
+ls -aF --color=always
 echo
 
 SCAFFOLD_GENERATE_TASK_PID=$!

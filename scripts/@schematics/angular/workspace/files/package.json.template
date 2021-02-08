@@ -55,7 +55,7 @@
     "off:update-packages:npm-outdated": "bash ./launch \" npm outdated \"",
     "off:update-packages:npm-update-save-dev": "bash ./launch \" npm update --save-dev \"",
     "off:update-packages:npm-update-save": "bash ./launch \" npm update --save \"",
-    "off:update-packages:ng-update-all": "bash ./launch \" ng update --all --allowDirty --force \"",
+    "off:update-packages:ng-update-all": "bash ./launch \" ng update --all --allow-dirty --force \"",
     "update-packages:ng-update": "bash ./launch \" ng update \"",
     "update-packages:npx-npm-check-updates-u": "bash ./launch \" npx npm-check-updates -u --packageFile package.json && npm install \"",
     "deprecated:update-packages": "bash ./launch \" node wipe-dependencies.js && rm -rf node_modules && npm update --save-dev && npm update --save \"",
