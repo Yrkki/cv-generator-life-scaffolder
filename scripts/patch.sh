@@ -84,7 +84,7 @@ for i in "${!apps[@]}"; do
     echo -ne $'\033[0m'
 
     git add .
-    git commit -am '(ci) bump dependencies'
+    git commit -am 'ci(update): bump dependencies'
     git push
     echo
 done
