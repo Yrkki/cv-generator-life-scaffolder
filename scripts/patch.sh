@@ -54,13 +54,13 @@ for i in "${!apps[@]}"; do
     # update all
     npm outdated
     if [ $angular == 0 ]; then
-        ng update $next
+        echo y | ng update $next
     fi
-    echo y | npx npm-check-updates --timeout 600000 -u --packageFile package.json
+    echo y | npx npm-check-updates --target minor --timeout 600000 -u --packageFile package.json
     npm install --legacy-peer-deps
     npm update
     if [ $angular == 0 ]; then
-        ng update --all --allow-dirty --force $next
+        echo y | ng update --all --allow-dirty --force $next
     fi
     # # implicit (@prepare)
     # npx snyk protect
@@ -73,6 +73,20 @@ for i in "${!apps[@]}"; do
     echo -ne $'\033[0m'
 
     echo y | npx snyk wizard
+done
+
+apps=(cv-generator-life-adapter project-server)
+
+for i in "${!apps[@]}"; do
+    cd $cvgRoot/${apps[$i]}
+    echo $'\033[1;30m'
+    pwd
+    echo -ne $'\033[0m'
+
+    git add .
+    git commit -am '(ci) bump dependencies'
+    git push
+    echo
 done
 
 echo $'\033[1;30m'Restoring directory...$'\033[0m'
